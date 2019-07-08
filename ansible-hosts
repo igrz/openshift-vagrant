@@ -42,17 +42,7 @@ openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 
 openshift_master_htpasswd_users={'admin': '$apr1$gfaL16Jf$c.5LAvg3xNDVQTkk6HpGB1'}
 
 openshift_disable_check=disk_availability,memory_availability,docker_storage,docker_image_availability
-openshift_docker_options=" --selinux-enabled --log-driver=journald --storage-driver=overlay --registry-mirror=http://4a0fee72.m.daocloud.io "
-
-#
-# Author's Note
-#
-# Disable service catalog and TSB install
-# These 2 component will lead to a failed install during tasks of Running Verification (120 tries)
-# This might happen only in China so far. The workaround is to enable VPN during the verification.
-#
-openshift_enable_service_catalog=false
-template_service_broker_install=false
+openshift_docker_options=" --selinux-enabled --log-driver=journald --storage-driver=overlay "
 
 # openshift_hosted_manage_registry=false
 
@@ -83,21 +73,21 @@ master.example.com openshift_ip={{NETWORK_BASE}}.101 openshift_host={{NETWORK_BA
 # - https://docs.okd.io/3.9/install_config/install/advanced_install.html#configuring-node-host-labels
 # - https://docs.okd.io/3.10/install/configuring_inventory_file.html#configuring-node-host-labels
 #
-# The default node selector for 
+# The default node selector for
 # release-3.9 ( or prev versions ): 'region=infra'
 # release-3.10: 'node-role.kubernetes.io/infra=true'
-# 
+#
 # But release-3.9 starts to enable node roles features. For backward compatibilities, we
 # override the default values of openshift_router_selector and openshift_registry_selector
 # from 'region=infra' to 'node-role.kubernetes.io/infra=true'
 #
 # @update on 2019/06/27
-# Somehow, the etcd is forced to deployed as container form, which caused 
+# Somehow, the etcd is forced to deployed as container form, which caused
 # "Wait for control plane pods to appear" issue and resulted in failures at last.
-# For more details about this discussions, please visit: 
+# For more details about this discussions, please visit:
 #   https://github.com/eliu/openshift-vagrant/issues/10
 # Advice has been taken from the issue discussion above and thanks to @Voronenko !
-# The trick is to add ansible variables "ontainerized=false etcd_ip={ip}" to force 
+# The trick is to add ansible variables "ontainerized=false etcd_ip={ip}" to force
 # master node use traditional way to install ECTD instead of containerization.
 #
 [nodes]
