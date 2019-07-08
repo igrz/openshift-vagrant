@@ -50,12 +50,12 @@ Vagrant.configure("2") do |config|
   SHELL
 
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "3072"
+    vb.memory = "8192"
     vb.cpus   = "4"
   end
 
   # Define nodes
-  (1..2).each do |i|
+  (1..1).each do |i|
     config.vm.define "node0#{i}" do |node|
       node.vm.network "private_network", ip: "#{NETWORK_BASE}.#{INTEGRATION_START_SEGMENT + i}"
       node.vm.hostname = "node0#{i}.example.com"
@@ -85,7 +85,7 @@ Vagrant.configure("2") do |config|
     # for mor details.
     #
     node.vm.provider "virtualbox" do |vb|
-      vb.memory = "6144"
+      vb.memory = "3072"
       vb.cpus   = "4"
     end
 
