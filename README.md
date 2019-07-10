@@ -49,7 +49,7 @@ The following table lists the corresponding version relationships between Origin
 
 ## Getting Started
 
-After adjusting your expected version information, now it's time to bring your cluster up and running. 
+After adjusting your expected version information, now it's time to bring your cluster up and running.
 
 This Vagrantfile will create 3 VMs in VirtualBox and the network base will be specified by variable `NETWORK_BASE`.
 
@@ -59,7 +59,6 @@ Checkout the table below for more details:
 | --- | --- | --- |
 | master | #{NETWORK_BASE}.101 | node, master, etcd |
 | node01 | #{NETWORK_BASE}.102 | node |
-| node02 | #{NETWORK_BASE}.103 | node |
 
 ### Bring Vagrant Up
 
@@ -70,7 +69,7 @@ $ vagrant up
 ### Provisioning Private Keys
 
 ```bash
-$ vagrant provision --provision-with master-key,node01-key,node02-key
+$ vagrant provision --provision-with master-key,node01-key
 ```
 
 ### Install Origin Cluster Using Ansible

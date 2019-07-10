@@ -38,7 +38,7 @@ readonly openshift_release=`cat Vagrantfile | grep '^OPENSHIFT_RELEASE' | awk -F
 . "$PRGDIR/common.sh"
 
 vagrant up
-vagrant provision --provision-with master-key,node01-key,node02-key
+vagrant provision --provision-with master-key,node01-key
 
 if [ "$(version $openshift_release)" -gt "$(version 3.7)" ]; then
     vagrant ssh master \
