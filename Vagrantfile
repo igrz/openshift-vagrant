@@ -26,6 +26,9 @@ Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
   config.vm.box_check_update = false
 
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.hostmanager.ignore_private_ip = false
 
   config.vm.provision "shell", inline: <<-SHELL
     /vagrant/all.sh #{OPENSHIFT_RELEASE}
@@ -47,6 +50,8 @@ Vagrant.configure("2") do |config|
   # Define master
   config.vm.define "master", primary: true do |node|
     node.vm.network "private_network", ip: "#{NETWORK_BASE}.#{INTEGRATION_START_SEGMENT}"
+
+    node.hostmanager.aliases = %w(master.example.com etcd.example.com nfs.example.com console.openshift.example.com online-test.example.com mgmt-test.example.com cms-test.example.com sb-mt-test.example.com)
 
     #
     # Memory of the master node must be allocated at least 2GB in order to
